@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Ganancia</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+
+    <script src="https://unpkg.com/xlsx-style@0.10.8/dist/xlsx.full.min.js"></script>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <div class="container">
+        <div class="m-3 p-4 text-center" id="comprasForm">
+            <header class="mb-2 d-flex justify-content-center align-items-center">
+                <h2 class="">Ganancias</h2>
+            </header>
+
+            <!-- Tabla de Datos -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Valor Ganancia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaGanancias">
+                        <!-- Aquí se mostrará la fila con el valor de ganancia -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-danger" onclick="generarPDF()">Descargar PDF</button>
+            <button class="btn btn-success ml-2" onclick="generarExcel()">Descargar Excel</button>
+        </div>
+
+    </div>
+
+    <!-- Botón de Retroceso -->
+    <div class="fixed-bottom ml-3 mb-2">
+        <button type="button" class="btn btn-color rounded-circle" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+
+    <!-- Bootstrap JS (si necesitas funcionalidades adicionales) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Tu archivo de scripts personalizado (si lo tienes) -->
+    <script src="scriptGanancia.js"></script>
+
+    <script>
+        console.log("inicia java Script");
+        function generarPDF() {
+            var doc = new jsPDF();
+            var tables = document.querySelectorAll('.table');
+
+            tables.forEach(function (table, index) {
+                var data = table.outerHTML;
+                doc.fromHTML(data, 10, 10);
+                if (index < tables.length - 1) {
+                    doc.addPage();
+                }
+            });
+
+            // Agregar otras tablas del localStorage al PDF
+            var otherTables = [
+                { clave: "claveLocalCompras", titulo: "Tabla de Compras" },
+                { clave: "claveLocalPerdidas", titulo: "Tabla de Pérdidas" },
+                { clave: "claveLocalVentas", titulo: "Tabla de Ventas" }
+            ];
+            otherTables.forEach(function (tableInfo) {
+                var cachedData = JSON.parse(localStorage.getItem(tableInfo.clave));
+                if (cachedData) {
+                    doc.addPage();
+                    doc.text(tableInfo.titulo, 80, 10);
+                    var tableData = "<table class='table'>";
+                    tableData += "<thead><tr><th scope='col'>Item</th>";
+                    for (var key in cachedData[0]) {
+                        tableData += "<th scope='col'>" + key + "</th>";
+                    }
+                    tableData += "</tr></thead><tbody>";
+                    cachedData.forEach(function (row, rowIndex) {
+                        tableData += "<tr><td>" + (rowIndex + 1) + "</td>";
+                        for (var key in row) {
+                            tableData += "<td>" + row[key] + "</td>";
+                        }
+                        tableData += "</tr>";
+                    });
+                    tableData += "</tbody></table>";
+                    doc.fromHTML(tableData, 10, 20);
+                }
+            });
+
+            doc.save('tablas.pdf');
+        }
+
+        function generarExcel() {
+            var wb = XLSX.utils.book_new();
+
+            // Agregar la tabla de ganancias al libro de Excel
+            var gananciasData = [['Item', 'Fecha', 'Valor Ganancia']];
+            var gananciasTable = document.getElementById('tablaGanancias');
+            for (var i = 0; i < gananciasTable.rows.length; i++) {
+                var rowData = [];
+                for (var j = 0; j < gananciasTable.rows[i].cells.length; j++) {
+                    rowData.push(gananciasTable.rows[i].cells[j].textContent);
+                }
+                gananciasData.push(rowData);
+            }
+            var gananciasSheet = XLSX.utils.aoa_to_sheet(gananciasData);
+            XLSX.utils.book_append_sheet(wb, gananciasSheet, 'Ganancias');
+
+            // Agregar otras tablas del localStorage al libro de Excel
+            var otherTables = [
+                { clave: "claveLocalCompras", titulo: "Tabla de Compras" },
+                { clave: "claveLocalPerdidas", titulo: "Tabla de Pérdidas" },
+                { clave: "claveLocalVentas", titulo: "Tabla de Ventas" }
+            ];
+            otherTables.forEach(function (tableInfo) {
+                var cachedData = JSON.parse(localStorage.getItem(tableInfo.clave));
+                if (cachedData) {
+                    var tableData = [['Item', ...Object.keys(cachedData[0])]];
+                    cachedData.forEach(function (row, index) {
+                        var rowData = [index + 1];
+                        for (var key in row) {
+                            rowData.push(row[key]);
+                        }
+                        tableData.push(rowData);
+                    });
+                    var sheet = XLSX.utils.aoa_to_sheet(tableData);
+                    XLSX.utils.book_append_sheet(wb, sheet, tableInfo.titulo);
+                }
+            });
+
+            // Descargar el archivo Excel
+            XLSX.writeFile(wb, 'tablas.xlsx');
+        }
+    </script>
+</body>
+
+</html>

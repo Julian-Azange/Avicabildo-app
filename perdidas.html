@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Compras</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="m-3 p-4" id="comprasForm">
+
+            <header class=" mb-2 d-flex justify-content-center align-items-center">
+                <h2 class="">Perdidas</h2>
+            </header>
+
+            <div class="d-flex justify-content-end mr-3 mb-3">
+                <button type="button" class="btn btn-color" data-toggle="modal" data-target="#tablaModal">
+                    <i class="fas fa-table"></i>
+                    Ver datos
+                </button>
+            </div>
+
+
+            <form class="m-2">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="item">Item</label>
+                        <input type="text" class="form-control" id="item" placeholder="defect" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" max="9999-12-31" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" rows="3" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" min="1" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="valor">Valor (en pesos colombianos)</label>
+                        <input type="number" class="form-control" id="valor" min="0" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    <textarea class="form-control" id="observaciones" rows="3"></textarea>
+                </div>
+                <div class="d-flex justify-content-center mb-5">
+                    <button type="button" class="btn btn-color" id="enviarBtn">Enviar</button>
+                </div>
+            </form>
+
+            <!-- Botón de Retroceso -->
+            <div class="fixed-bottom ml-3 mb-2">
+                <button type="button" class="btn btn-color rounded-circle" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+            <!-- Botón del Modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="tablaModal" tabindex="-1" role="dialog" aria-labelledby="tablaModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tablaModalLabel">Datos Ingresados</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Observaciones</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaDatos">
+                                    <!-- Los datos ingresados se mostrarán aquí -->
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4"></td>
+                                        <td>Total: <span id="totalValor">0</span></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <!-- Bootstrap JS (si necesitas funcionalidades adicionales) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="scripts.js"></script>
+
+    <script>
+        // Variable para la clave única de la página
+        var paginaClave = 'claveLocalPerdidas';
+    </script>
+</body>
+
+</html>
