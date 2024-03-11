@@ -1,7 +1,8 @@
 body {
     /* background: linear-gradient(to bottom left, #b0d0fa, #fefffe, #bfc3fc); */
+    background-image: url('img/fondo.png');
     font-family: 'Poppins', sans-serif;
-    color: #5a5a5a;
+    color: #333333;
 }
 
 /* Loader */
@@ -43,17 +44,9 @@ body {
     max-height: 100%;
 }
 
-
-
 /* ----------- */
 
 /* Estilos para la card */
-
-a{
-    text-decoration: none;
-    color: #fff;
-
-}
 
 .card{
     border-radius: 20px;
@@ -61,21 +54,61 @@ a{
     border: none;
 }
 
+.card-lote{
+    background-color: #c74f4e;
+}
+
+.card-lote:hover{
+    box-shadow: 0 8px 16px #d4dcef;
+    background-color: #a73f3e;
+}
+
 .card-compras{
     background-color: #aed2f7;
+}
+
+.card-compras:hover{
+    box-shadow: 0 8px 16px #d4dcef;
+    background-color: #7fa8f7;
 }
 
 .card-perdidas{
     background-color: #f7a3a3;
 }
 
+.card-perdidas:hover{
+    box-shadow: 0 8px 16px #d4dcef;
+    background-color: #f77a7a;
+}
+
 .card-ventas{
     background-color: #f7d6a3;
+}
+
+.card-ventas:hover{
+    box-shadow: 0 8px 16px #d4dcef;
+    background-color: #f7b87a;
 }
 
 .card-ganancias{
     background-color: #a3f7a3;
 }
+
+.card-ganancias:hover{
+    box-shadow: 0 8px 16px #d4dcef;
+    background-color: #7af77a;
+}
+
+.clickable-card {
+    cursor: pointer;
+    color: #fff;
+}
+
+.clickable-card i {
+    color: #fff;
+}
+
+
 
 
 /* ----------------- */
