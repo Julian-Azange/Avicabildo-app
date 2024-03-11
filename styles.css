@@ -3,6 +3,9 @@ body {
     background-image: url('img/fondo.png');
     font-family: 'Poppins', sans-serif;
     color: #333333;
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
 }
 
 /* Loader */
@@ -140,9 +143,9 @@ body {
 }
 
 .btn-color {
-    background-color: #73b5e9;
+    background-color: #c74f4e;
     color: #fff;
-    box-shadow: 0 4px 8px #bfc3fc;
+    box-shadow: 0 4px 8px #f8b4b4;
 }
 
 /* Estilos para redondear las esquinas de los inputs y textarea */

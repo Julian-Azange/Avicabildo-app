@@ -18,16 +18,14 @@
 
 <body>
 
-    <div class="container">
+    <div id="main-container" class="container mt-4 text-center">
 
         <!-- Header -->
-        <header class="text-center py-3">
+        <header class="text-center py-3 mt-5 mb-5">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-12">
                         <img src="img/logo1.png" alt="Tu Logo" class="img-fluid" width="150">
-                        <h6 class="mt-2">Bienvenidos a</h6>
-                        <h2>Avicabildo</h2>
                     </div>
                 </div>
             </div>
@@ -38,6 +36,12 @@
             <!-- container -->
 
             <div class="container">
+
+                <div class="text-center mb-5">
+                    <h3 class=""><b>Bienvenidos</b></h3>
+                    <p>Sistema de registro para inventario.</p>
+                </div>
+
                 <div class="row">
                     <!-- col -->
 
@@ -137,13 +141,21 @@
             </div>
         </div>
 
-        <!-- Botón de Retroceso -->
-        <div class="fixed-bottom ml-3 mb-3">
-            <button type="button" class="btn btn-color rounded-circle" onclick="window.history.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-        </div>
+        <!-- Footer -->
+        <footer class="py-3 mt-4">
+            <div class="d-flex justify-content-center pl-4 pr-4">
+                <img class="mr-5" src="img/logo1.png" alt="" width="50">
+                <img src="img/tecnoparque.png" alt="" width="150">
+            </div>
+            <p class="mt-3"><b>Avicabildo © 2024</b></p>
+        </footer>
 
+    </div>
+    <!-- Botón de Retroceso -->
+    <div class="fixed-bottom ml-3 mb-3">
+        <button type="button" class="btn btn-color rounded-circle" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
     </div>
 
     <!-- Bootstrap JS (si necesitas funcionalidades adicionales) -->
