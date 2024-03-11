@@ -49,9 +49,34 @@ body {
 
 /* Estilos para la card */
 
-.card{
-    
+a{
+    text-decoration: none;
+    color: #fff;
+
 }
+
+.card{
+    border-radius: 20px;
+    box-shadow: 0 4px 8px #d4dcef;
+    border: none;
+}
+
+.card-compras{
+    background-color: #aed2f7;
+}
+
+.card-perdidas{
+    background-color: #f7a3a3;
+}
+
+.card-ventas{
+    background-color: #f7d6a3;
+}
+
+.card-ganancias{
+    background-color: #a3f7a3;
+}
+
 
 /* ----------------- */
 
