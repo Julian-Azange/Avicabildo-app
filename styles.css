@@ -155,6 +155,10 @@ textarea,
     border-radius: 15px;
 }
 
+.btn-color:hover {
+    background-color: #a73f3e;
+    color: #fff;
+}
 /* Estilos adicionales si lo necesitas */
 #comprasForm {
     background-color: #f8f9fa;
