@@ -1,6 +1,6 @@
 body {
     /* background: linear-gradient(to bottom left, #b0d0fa, #fefffe, #bfc3fc); */
-    background-image: url('img/fondo.png');
+    background-image: url('img/fondo2.png');
     font-family: 'Poppins', sans-serif;
     color: #333333;
     background-size: cover;
@@ -61,12 +61,12 @@ body {
 }
 
 .card-lote {
-    background-color: #c74f4e;
+    background-color: #fdd264;
 }
 
 .card-lote:hover {
     box-shadow: 0 8px 16px #d4dcef;
-    background-color: #a73f3e;
+    background-color: #f7c54a;
 }
 
 .card-compras {
@@ -158,9 +158,9 @@ body {
 }
 
 .btn-color {
-    background-color: #c74f4e;
+    background-color: #fab913;
     color: #fff;
-    box-shadow: 0 4px 8px #f8b4b4;
+    box-shadow: 0 4px 8px #fdd264;
 }
 
 /* Estilos para redondear las esquinas de los inputs y textarea */
@@ -171,7 +171,7 @@ textarea,
 }
 
 .btn-color:hover {
-    background-color: #a73f3e;
+    background-color: #fdd264;
     color: #fff;
 }
 
