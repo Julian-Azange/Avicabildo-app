@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to bottom left, #b0d0fa, #fefffe, #bfc3fc);
+    /* background: linear-gradient(to bottom left, #b0d0fa, #fefffe, #bfc3fc); */
     font-family: 'Poppins', sans-serif;
     color: #5a5a5a;
 }
@@ -46,6 +46,14 @@ body {
 
 
 /* ----------- */
+
+/* Estilos para la card */
+
+.card{
+    
+}
+
+/* ----------------- */
 
 #main-container {
     max-width: 800px;
@@ -97,5 +105,9 @@ textarea,
 @media screen and (max-width: 768px) {
     .table {
         font-size: 12px;
+    }
+
+    h4 {
+        font-size: 1.2rem;
     }
 }
