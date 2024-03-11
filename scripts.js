@@ -1,7 +1,6 @@
 /* Input valor */
 
 
-
 document.getElementById('enviarBtn').addEventListener('click', function () {
     // Obtener los datos del formulario
     var fecha = document.getElementById('fecha');
@@ -169,5 +168,6 @@ function renderizarTabla() {
 document.addEventListener('DOMContentLoaded', function () {
     renderizarTabla();
 });
+
 
 

@@ -12,6 +12,8 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
+
     <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -40,7 +42,7 @@
                         <label for="item">Item</label>
                         <input type="text" class="form-control" id="item" placeholder="defect" readonly>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-8">
                         <label for="fecha">Fecha</label>
                         <input type="date" class="form-control" id="fecha" max="9999-12-31" required>
                     </div>
@@ -54,10 +56,14 @@
                         <label for="cantidad">Cantidad</label>
                         <input type="number" class="form-control" id="cantidad" min="1" required>
                     </div>
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-6">
                         <label for="cantidad">Estado</label>
-                        
-                    </div>
+                        <select class="form-control" id="estado" required>
+                            <option value="estado">Selecciona un estado</option>
+                            <option value="debe">Debe</option>
+                            <option value="pago">Pago</option>
+                        </select>
+                    </div> -->
                     <div class="form-group col-md-6">
                         <label for="valor">Valor (en pesos colombianos)</label>
                         <div class="input-group">
@@ -129,11 +135,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
     </div>
 
     <!-- Bootstrap JS (si necesitas funcionalidades adicionales) -->
@@ -141,12 +142,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
     <script src="scripts.js"></script>
 
     <script>
         // Variable para la clave única de la página
         var paginaClave = 'claveLocalVentas';
+
+        // Obtén el elemento select por su id
+        var selectEstado = document.getElementById('estado');
+
+        // Agrega un evento change al select
+        selectEstado.addEventListener('change', function () {
+            // Obtén el valor seleccionado
+            var selectedValue = this.value;
+
+            // Determina el ícono correspondiente según la selección
+            var icono = (selectedValue === 'debe') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-check"></i>';
+
+            // Cambia el ícono en el botón de la fila seleccionada
+            var filaSeleccionada = document.querySelector('#tablaDatos tr.selected');
+            if (filaSeleccionada) {
+                var botonIcono = filaSeleccionada.querySelector('.btn-success, .btn-danger');
+                botonIcono.innerHTML = icono;
+            }
+        });
 
 
     </script>

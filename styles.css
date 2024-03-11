@@ -3,9 +3,12 @@ body {
     background-image: url('img/fondo.png');
     font-family: 'Poppins', sans-serif;
     color: #333333;
-    background-size: cover; /* Hace que la imagen cubra todo el fondo */
-    background-position: center; /* Centra la imagen en el fondo */
-    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+    background-size: cover;
+    /* Hace que la imagen cubra todo el fondo */
+    background-position: center;
+    /* Centra la imagen en el fondo */
+    background-repeat: no-repeat;
+    /* Evita que la imagen de fondo se repita */
 }
 
 /* Loader */
@@ -51,53 +54,53 @@ body {
 
 /* Estilos para la card */
 
-.card{
+.card {
     border-radius: 20px;
     box-shadow: 0 4px 8px #d4dcef;
     border: none;
 }
 
-.card-lote{
+.card-lote {
     background-color: #c74f4e;
 }
 
-.card-lote:hover{
+.card-lote:hover {
     box-shadow: 0 8px 16px #d4dcef;
     background-color: #a73f3e;
 }
 
-.card-compras{
+.card-compras {
     background-color: #aed2f7;
 }
 
-.card-compras:hover{
+.card-compras:hover {
     box-shadow: 0 8px 16px #d4dcef;
     background-color: #7fa8f7;
 }
 
-.card-perdidas{
+.card-perdidas {
     background-color: #f7a3a3;
 }
 
-.card-perdidas:hover{
+.card-perdidas:hover {
     box-shadow: 0 8px 16px #d4dcef;
     background-color: #f77a7a;
 }
 
-.card-ventas{
+.card-ventas {
     background-color: #f7d6a3;
 }
 
-.card-ventas:hover{
+.card-ventas:hover {
     box-shadow: 0 8px 16px #d4dcef;
     background-color: #f7b87a;
 }
 
-.card-ganancias{
+.card-ganancias {
     background-color: #a3f7a3;
 }
 
-.card-ganancias:hover{
+.card-ganancias:hover {
     box-shadow: 0 8px 16px #d4dcef;
     background-color: #7af77a;
 }
@@ -111,10 +114,22 @@ body {
     color: #fff;
 }
 
+/* ----------------- */
 
 
+/* Colores de filas en el modal Ventas */
+.debe {
+    background-color: #f7a3a3 !important;
+}
+
+.pago {
+    background-color: #a3f7a3 !important;
+}
 
 /* ----------------- */
+
+
+
 
 #main-container {
     max-width: 800px;
@@ -159,6 +174,7 @@ textarea,
     background-color: #a73f3e;
     color: #fff;
 }
+
 /* Estilos adicionales si lo necesitas */
 #comprasForm {
     background-color: #f8f9fa;
