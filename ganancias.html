@@ -50,7 +50,8 @@
                 </table>
             </div>
             <!-- Limpiar tablas -->
-            <button class="btn btn-danger btn-sm" id="borrarDatosBtn" style="display: none;" onclick="borrarDatos()">
+            <button class="btn btn-danger btn-sm" id="borrarDatosBtn" style="display: none;"
+                onclick="mostrarModalBorrarDatos()">
                 Borrar datos
                 <i class="fa-solid fa-trash-can-arrow-up"></i>
             </button>
@@ -69,6 +70,28 @@
         <button type="button" class="btn btn-color rounded-circle" onclick="window.history.back()">
             <i class="fas fa-arrow-left"></i>
         </button>
+    </div>
+
+    <!-- Modal de confirmación para borrar datos -->
+    <div class="modal fade" id="confirmarBorrarModal" tabindex="-1" role="dialog"
+        aria-labelledby="confirmarBorrarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarBorrarModalLabel">Confirmar acción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar los datos de todas las tablas?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="borrarDatos()">Aceptar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -129,50 +152,75 @@
         }
 
         function generarExcel() {
-            var wb = XLSX.utils.book_new();
-
-            // Agregar la tabla de ganancias al libro de Excel
-            var gananciasData = [['Item', 'Fecha', 'Valor Ganancia']];
             var gananciasTable = document.getElementById('tablaGanancias');
+            var gananciasCero = false;
+
+            // Verificar si hay algún valor de ganancia igual a cero
             for (var i = 0; i < gananciasTable.rows.length; i++) {
-                var rowData = [];
-                for (var j = 0; j < gananciasTable.rows[i].cells.length; j++) {
-                    rowData.push(gananciasTable.rows[i].cells[j].textContent);
+                var valorGanancia = parseFloat(gananciasTable.rows[i].cells[2].textContent);
+                if (valorGanancia === 0 || isNaN(valorGanancia)) {
+                    gananciasCero = true;
+                    break;
                 }
-                gananciasData.push(rowData);
             }
-            var gananciasSheet = XLSX.utils.aoa_to_sheet(gananciasData);
-            XLSX.utils.book_append_sheet(wb, gananciasSheet, 'Ganancias');
 
-            // Agregar otras tablas del localStorage al libro de Excel
-            var otherTables = [
-                { clave: "claveLocalCompras", titulo: "Tabla de Compras" },
-                { clave: "claveLocalPerdidas", titulo: "Tabla de Pérdidas" },
-                { clave: "claveLocalVentas", titulo: "Tabla de Ventas" }
-            ];
-            otherTables.forEach(function (tableInfo) {
-                var cachedData = JSON.parse(localStorage.getItem(tableInfo.clave));
-                if (cachedData) {
-                    var tableData = [['Item', ...Object.keys(cachedData[0])]];
-                    cachedData.forEach(function (row, index) {
-                        var rowData = [index + 1];
-                        for (var key in row) {
-                            rowData.push(row[key]);
-                        }
-                        tableData.push(rowData);
-                    });
-                    var sheet = XLSX.utils.aoa_to_sheet(tableData);
-                    XLSX.utils.book_append_sheet(wb, sheet, tableInfo.titulo);
+            // Ocultar el botón de descarga del Excel si hay algún valor de ganancia igual a cero
+            var botonDescarga = document.querySelector('.download');
+            if (gananciasCero) {
+                botonDescarga.style.display = 'none';
+            } else {
+                botonDescarga.style.display = 'block';
+                var wb = XLSX.utils.book_new();
+
+                // Agregar la tabla de ganancias al libro de Excel
+                var gananciasData = [['Item', 'Fecha', 'Valor Ganancia']];
+                for (var i = 0; i < gananciasTable.rows.length; i++) {
+                    var rowData = [];
+                    for (var j = 0; j < gananciasTable.rows[i].cells.length; j++) {
+                        rowData.push(gananciasTable.rows[i].cells[j].textContent);
+                    }
+                    gananciasData.push(rowData);
                 }
-            });
+                var gananciasSheet = XLSX.utils.aoa_to_sheet(gananciasData);
+                XLSX.utils.book_append_sheet(wb, gananciasSheet, 'Ganancias');
 
-            // Descargar el archivo Excel
-            XLSX.writeFile(wb, 'tablas.xlsx');
-            mostrarBotonBorrarDatos(); // Mostrar el botón de borrar datos después de descargar el Excel
+                // Agregar otras tablas del localStorage al libro de Excel
+                var otherTables = [
+                    { clave: "claveLocalCompras", titulo: "Tabla de Compras" },
+                    { clave: "claveLocalPerdidas", titulo: "Tabla de Pérdidas" },
+                    { clave: "claveLocalVentas", titulo: "Tabla de Ventas" }
+                ];
+                otherTables.forEach(function (tableInfo) {
+                    var cachedData = JSON.parse(localStorage.getItem(tableInfo.clave));
+                    if (cachedData) {
+                        var tableData = [['Item', ...Object.keys(cachedData[0])]];
+                        cachedData.forEach(function (row, index) {
+                            var rowData = [index + 1];
+                            for (var key in row) {
+                                rowData.push(row[key]);
+                            }
+                            tableData.push(rowData);
+                        });
+                        var sheet = XLSX.utils.aoa_to_sheet(tableData);
+                        XLSX.utils.book_append_sheet(wb, sheet, tableInfo.titulo);
+                    }
+                });
+
+                // Descargar el archivo Excel
+                XLSX.writeFile(wb, 'tablas.xlsx');
+                mostrarBotonBorrarDatos(); // Mostrar el botón de borrar datos después de descargar el Excel
+            }
         }
+
+
+
 
         function mostrarBotonBorrarDatos() {
             document.getElementById("borrarDatosBtn").style.display = "inline-block";
+        }
+
+        function mostrarModalBorrarDatos() {
+            $('#confirmarBorrarModal').modal('show');
         }
 
         function borrarDatos() {
