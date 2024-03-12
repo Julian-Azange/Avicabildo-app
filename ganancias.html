@@ -28,6 +28,7 @@
 <body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
     <div class="container">
+
         <div class="m-3 p-4 text-center" id="comprasForm">
             <header class="mb-2 d-flex justify-content-center align-items-center">
                 <h2 class="">Ganancias</h2>
@@ -48,11 +49,17 @@
                     </tbody>
                 </table>
             </div>
-
+            <!-- Limpiar tablas -->
+            <button class="btn btn-danger btn-sm" id="borrarDatosBtn" style="display: none;" onclick="borrarDatos()">
+                Borrar datos
+                <i class="fa-solid fa-trash-can-arrow-up"></i>
+            </button>
         </div>
         <div class="text-center mt-4">
-            <button class="btn btn-danger" onclick="generarPDF()">Descargar PDF</button>
-            <button class="btn btn-success ml-2" onclick="generarExcel()">Descargar Excel</button>
+            <button class="btn btn-success ml-2 download" onclick="generarExcel()">
+                Descargar Excel
+                <i class="fa-solid fa-download"></i>
+            </button>
         </div>
 
     </div>
@@ -75,6 +82,7 @@
 
     <script>
         console.log("inicia java Script");
+
         function generarPDF() {
             var doc = new jsPDF();
             var tables = document.querySelectorAll('.table');
@@ -117,6 +125,7 @@
             });
 
             doc.save('tablas.pdf');
+            mostrarBotonBorrarDatos(); // Mostrar el botón de borrar datos después de descargar el PDF
         }
 
         function generarExcel() {
@@ -159,6 +168,16 @@
 
             // Descargar el archivo Excel
             XLSX.writeFile(wb, 'tablas.xlsx');
+            mostrarBotonBorrarDatos(); // Mostrar el botón de borrar datos después de descargar el Excel
+        }
+
+        function mostrarBotonBorrarDatos() {
+            document.getElementById("borrarDatosBtn").style.display = "inline-block";
+        }
+
+        function borrarDatos() {
+            localStorage.clear();
+            location.reload(); // Recargar la página después de borrar los datos
         }
     </script>
 </body>
