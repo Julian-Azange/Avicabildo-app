@@ -159,7 +159,7 @@
 
             // Verificar si hay algún valor de ganancia igual a cero
             for (var i = 0; i < gananciasTable.rows.length; i++) {
-                var valorGanancia = parseFloat(gananciasTable.rows[i].cells[2].textContent);
+                var valorGanancia = parseFloat(gananciasTable.rows[i].cells[2].textContent.replace(/[^\d.-]/g, ''));
                 if (valorGanancia === 0 || isNaN(valorGanancia)) {
                     gananciasCero = true;
                     break;
@@ -171,7 +171,7 @@
             if (gananciasCero) {
                 botonDescarga.style.display = 'none';
             } else {
-                botonDescarga.style.display = 'block';
+                botonDescarga.style.display = 'text-center';
                 var wb = XLSX.utils.book_new();
 
                 // Agregar la tabla de ganancias al libro de Excel
@@ -213,6 +213,8 @@
                 mostrarBotonBorrarDatos(); // Mostrar el botón de borrar datos después de descargar el Excel
             }
         }
+
+
 
 
 
